@@ -12,23 +12,54 @@ public class ListaTelefonica {
 		
 		controller.loadFile("telefones.dat");
 		view.message("Digite 'ajuda' para comandos validos.");
+		
+		int mostraCont = 0;
+		
 		while (!command.equals("sair")) {
-			controller.showContato();
+			
+			if (mostraCont == 1){
+				controller.showContato();
+				mostraCont = 0;
+			}
+			
 			command = view.read("Comando").toLowerCase();
-			if (command.equals("avancar"))
+			if (command.equals("avancar")){
 				controller.nextContato();
-			if (command.equals("voltar"))
+				mostraCont = 1;
+			}
+			else if (command.equals("voltar")){
 				controller.previousContato();
-			if (command.equals("inserir"))
+				mostraCont = 1;
+			}
+			else if (command.equals("inserir")){
 				controller.insertContato();
-			if (command.equals("excluir"))
+				mostraCont = 0;
+			}
+			else if (command.equals("excluir")){
 				controller.removeContato();
-			if (command.equals("procurar"))
-				controller.searchContato();
-			if (command.equals("ajuda"))
-				view.message("ajuda  avancar  voltar  inserir  excluir  procurar  sair");
+				mostraCont = 0;
+			}
+			else if (command.equals("procurar")){
+				controller.searchContato("",false);
+				mostraCont = 1;
+			}
+			else if (command.equals("procurarbin")){
+				controller.searchContatoBinario();
+				mostraCont = 1;
+			}
+			else if (command.equals("ajuda")){
+				view.message("ajuda  avancar  voltar  inserir  excluir  procurar procurarbin sair");
+				mostraCont = 0;
+			}
+			else if (command.equals("sair")){
+				controller.saveFile("telefones.dat");
+				System.exit(0);
+			}
+			else{
+				view.message("COMANDO INVÁLIDO ! \npossiveis comandos: ajuda  avancar  voltar  inserir  excluir  procurar procurarbin sair");
+				mostraCont = 0;
+			}
 		}
-		controller.saveFile("telefones.dat");
 	}
 
 }

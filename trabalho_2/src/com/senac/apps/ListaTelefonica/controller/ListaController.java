@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.senac.apps.ListaTelefonica.model.Pessoa;
@@ -85,25 +86,98 @@ public class ListaController {
 		}
 	}
 
-	private Nodo<Pessoa> procuraContato(ListaEncadeada<Pessoa> lista, String chave)
+	private Nodo<Pessoa> procuraContato(ListaEncadeada<Pessoa> lista, String chave, boolean res)
 	{
+		int vezes = 0;
 		Nodo<Pessoa> iter = lista.getHead();
 		while (iter != null) {
+			vezes++;
 			Pessoa contato = iter.getData();
 			String nome = contato.getNome().toLowerCase();
 			if (nome.startsWith(chave)) {
+				if (res)
+					view.message("A busca sequêncial executou "+ vezes +" passos");
 				return iter;
 			}
 			iter = iter.getNext();
 		}
+		if (res)
+			view.message("A busca sequêncial executou "+ vezes +" passos");
 		return null;
 	}
 	
-	public void searchContato() {
-		String chave = view.read("Inicio do Nome").toLowerCase();
-		Nodo<Pessoa> contato = procuraContato(contatos, chave);
+	// implementação do método procuraContato para realizar busca binária
+	private void procuraContatoBinario(ListaEncadeada<Pessoa> lista, String chave)
+	{
+		ArrayList<String> nome = new ArrayList<String>();
+		ArrayList<String> telefone = new ArrayList<String>();
+		int [] busca = new int[2];
+		
+		// carrega os arrayList com os dados ordenados
+		Nodo<Pessoa> iter = lista.getHead();
+		while (iter != null) {
+			Pessoa contato = iter.getData();
+			nome.add(contato.getNome());
+			telefone.add(contato.getTelefone());
+			iter = iter.getNext();
+		}
+		
+		busca = buscaBinaria(nome,0,nome.size() - 1,chave,0);
+		
+		if (busca[1] > 0){
+			view.message("A busca binária executou " + busca[1] + " passos");
+			view.printContato(nome.get(busca[0]), telefone.get(busca[0]));			
+		}
+		else{
+			view.message("A busca binária não encontrou o registro.");
+		}
+		
+	}
+	
+	private int[] buscaBinaria(ArrayList<String> nomes,int s, int e, String chave, int vezes){
+		
+		int[] ret = new int[2];
+		vezes++;
+		
+		int half = (int) (e - s)/2 + s;
+		
+		if (half == s && half < e && half > 0) // para evitar laço infinito caso último elemento seja a chave.
+			half++;
+		
+		int comp = chave.compareTo(nomes.get(half)); 
+		
+		if (comp == 0){		// chave == half
+			ret[0] = half;
+			ret[1] = vezes;
+		}
+		else if (comp < 0){ // chave < half
+			if (half == e)
+				return ret;
+			ret = buscaBinaria(nomes,s,half,chave,vezes);
+		}
+		else if (comp > 0){ // chave > half
+			if (half == e)
+				return ret;
+			ret = buscaBinaria(nomes,half,e,chave,vezes);
+		}
+				
+		return ret;
+	}
+	
+	public void searchContato(String chave, boolean res) {
+		if (chave.isEmpty()){
+			chave = view.read("Inicio do Nome").toLowerCase();
+		}
+		
+		Nodo<Pessoa> contato = procuraContato(contatos, chave, res);
 		if (contato != null)
 			current = contato;
+	}
+	public void searchContatoBinario() {
+		String chave = view.read("Inicio do Nome").toLowerCase();
+		procuraContatoBinario(contatos, chave);
+		view.message("");
+		searchContato(chave,true);
 	}
 
 	public void saveFile(String filename) {
@@ -113,7 +187,7 @@ public class ListaController {
 			Nodo<Pessoa> iter = arquivo.getHead();
 			while (iter != null) {
 				Pessoa contato = iter.getData();
-				if (procuraContato(contatos, contato.getNome()) == null)
+				if (procuraContato(contatos, contato.getNome(),false) == null)
 					arq.append("#"+contato.getNome()+"\n");
 				else
 					arq.append(contato.getNome()+"\n");
