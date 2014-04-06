@@ -34,4 +34,13 @@ public class Jogador {
 	public void sbtPontos (int qtd){
 		this.pontos = this.pontos - qtd;
 	}
+	
+	public boolean gameOver(){
+		
+		if (this.pontos <= 0){
+			return true;
+		}
+		
+		return false;
+	}
 }
