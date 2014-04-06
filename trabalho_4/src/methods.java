@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class methods {
-	
+		
 	public int[] genList(int qtd){
 		
 		int[] intArr = new int[qtd];
