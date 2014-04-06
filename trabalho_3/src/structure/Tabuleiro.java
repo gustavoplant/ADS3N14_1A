@@ -4,11 +4,27 @@ import java.util.ArrayList;
 import java.util.Random;
 import model.Navio;
 
+
 public class Tabuleiro extends Navio {
 	
 	char[][] battleField = new char[10][10]; // matriz para marcar os tiros e acertos
 	int[][] raddar = new int[10][10]; // variavel para registrar onde estão os navios (guarda o ID do objeto)
 	ArrayList<Navio> frota = new ArrayList<>(); // array que armazena o ponteiro para a instância do objeto Navio
+
+	public char[][] getBattleField() {
+		return battleField;
+	}
+
+
+	public int[][] getRaddar() {
+		return raddar;
+	}
+
+
+	public ArrayList<Navio> getFrota() {
+		return frota;
+	}	
+	
 	
 	
 	public Tabuleiro(){
@@ -39,17 +55,26 @@ public class Tabuleiro extends Navio {
 		 *    se não retorna uma dezena de 10 - 50 reprentando o tipo de navio
 		 *    
 		 * se errar retorna 0
+		 * 
+		 * se atirar no mesmo lugar retorna -1
 		 */
 		
 		// convert o char para a posicao da coluna sendo A == 0
 		int c = (int) col;
 		c = c - 97;
 		
-		int l = (int) linha;
+		int l = Integer.parseInt(Character.toString(linha));
+		
+		if (this.battleField[c][l] == '-'){
+			return -1;
+		}
 		
 		int shotId = raddar[c][l];
 		
 		if (shotId > -1){
+			
+			this.battleField[c][l] = 'O';
+			
 			if (frota.get(shotId).isLost() == true){
 				return frota.get(shotId).getType() * 100;
 			}
@@ -105,5 +130,7 @@ public class Tabuleiro extends Navio {
 			}
 		}
 	}
+
+
 	
 }

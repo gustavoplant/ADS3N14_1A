@@ -33,6 +33,9 @@ public class Screen {
 		System.out.println("                                                      ");
 		System.out.println("                                                      ");
 		System.out.println("                                                      ");
+		System.out.println("                                                      ");
+		System.out.println("                                                      ");
+		System.out.println("                                                      ");
 	}
 	
 	public void showMessage(String msg){
@@ -50,6 +53,19 @@ public class Screen {
 		}
 		
 		return ret;
+	}
+	
+	public void printTabuleiro (char[][] arrIn){
+		
+		System.out.print("   A   B   C   D   E   F   G   H   I   J\n");
+		for (int l=0;l<=9;l++){
+			System.out.print(l +"  ");
+			for (int c=0;c<=9;c++){
+				System.out.print(arrIn[c][l] + "   ");
+			}
+			System.out.print("\n");
+		}
+		
 	}
 
 }
