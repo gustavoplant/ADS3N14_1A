@@ -51,6 +51,7 @@ public class HeapSort {
  
        public  void swap ( int[ ] nrosArr, int j, int aposJ )
        {
+    	  steps++;
           int aux = nrosArr [ j ];
           nrosArr [ j ] = nrosArr [ aposJ ];
           nrosArr [ aposJ ] = aux;
