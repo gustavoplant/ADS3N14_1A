@@ -65,7 +65,7 @@ public class Tabuleiro extends Navio {
 		
 		int l = Integer.parseInt(Character.toString(linha));
 		
-		if (this.battleField[c][l] == '-'){
+		if (this.battleField[c][l] == '-' || this.battleField[c][l] == 'O'){
 			return -1;
 		}
 		
@@ -102,6 +102,8 @@ public class Tabuleiro extends Navio {
 				
 				cr = randomGen.nextInt(9 - tam);
 				lr = randomGen.nextInt(9);
+				
+				livre = true;
 				
 				int col = cr;
 				int linha = lr;

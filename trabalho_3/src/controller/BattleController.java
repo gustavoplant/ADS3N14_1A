@@ -34,7 +34,7 @@ public class BattleController {
 		tabuleiro.criarNavio(2,4,2);
 		frotaSize = frotaSize + 2;
 		
-	/*	
+		
 		// fragatas
 		tabuleiro.criarNavio(2,3,3);
 		frotaSize = frotaSize + 2;
@@ -46,8 +46,7 @@ public class BattleController {
 		// submarinos
 		tabuleiro.criarNavio(5,1,5);
 		frotaSize = frotaSize + 5;
-*/
-		
+	
 		
 		screen.showMessage("Bem vindo ao BatleField !!!");
 		screen.showMessage("");
@@ -67,9 +66,10 @@ public class BattleController {
 				cmd = screen.showInputScreen("Insira a coordenada").toLowerCase();
 				
 				if (cmd.equals("pr")){
+					screen.newScreen();
 					screen.showHead(" RADDAR VIEW " , 0);
 					screen.printRaddar(tabuleiro.getRaddar());
-					cmd = screen.showInputScreen("Insira qualquer entrada para continuar ...");
+					cmd = screen.showInputScreen("Precione ENTER para continuar ...",false);
 					cmd = "next";
 					break;
 				}
@@ -80,7 +80,7 @@ public class BattleController {
 				if (m.find()){
 					break;
 				}
-				screen.showMessage("Coordenada incorreta, insira no formato coluna[a-j] linha[0-9]");
+				screen.showWarnMsg("Coordenada incorreta, insira no formato coluna[a-j] linha[0-9]",1000);
 			}
 			
 			if (cmd.equals("next")){
@@ -93,12 +93,7 @@ public class BattleController {
 			int retShot = tabuleiro.shot(c, l);
 			
 			if (retShot == -1){
-				screen.showMessage("Você já atirou neste ponto, tente outro ponto !!!");
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-
-				}
+				screen.showWarnMsg("Você já atirou neste ponto, tente outro ponto !!!",1000);
 				continue;
 			}
 			else if (retShot == 0){ // errou
@@ -110,19 +105,19 @@ public class BattleController {
 				frotaSize--;
 				
 				if (retShot == 100){
-					screen.showMessage("Você destruiu um porta aviões (5 pontos)");
+					screen.showWarnMsg("Você destruiu um porta aviões (5 pontos)",3000);
 				}
 				else if (retShot == 200){
-					screen.showMessage("Você destruiu um destroyer (5 pontos)");
+					screen.showWarnMsg("Você destruiu um destroyer (5 pontos)",3000);
 				}
 				else if (retShot == 300){
-					screen.showMessage("Você destruiu uma fragata (5 pontos)");
+					screen.showWarnMsg("Você destruiu uma fragata (5 pontos)",3000);
 				}
 				else if (retShot == 400){
-					screen.showMessage("Você destruiu um torpedeiro (5 pontos)");
+					screen.showWarnMsg("Você destruiu um torpedeiro (5 pontos)",3000);
 				}
 				else if (retShot == 500){
-					screen.showMessage("Você destruiu um submarino (5 pontos)");
+					screen.showWarnMsg("Você destruiu um submarino (5 pontos)",3000);
 				}
 				
 			}
@@ -130,21 +125,20 @@ public class BattleController {
 				
 				jogador.adcPontos(3);
 				if (retShot == 10){
-					screen.showMessage("Você acertou um porta aviões (3 pontos)");
+					screen.showWarnMsg("Você acertou um porta aviões (3 pontos)",3000);
 				}
 				else if (retShot == 20){
-					screen.showMessage("Você acertou um destroyer (3 pontos)");
+					screen.showWarnMsg("Você acertou um destroyer (3 pontos)",3000);
 				}
 				else if (retShot == 30){
-					screen.showMessage("Você acertou uma fragata (3 pontos)");
+					screen.showWarnMsg("Você acertou uma fragata (3 pontos)",3000);
 				}
 				else if (retShot == 40){
-					screen.showMessage("Você acertou um torpedeiro (3 pontos)");
+					screen.showWarnMsg("Você acertou um torpedeiro (3 pontos)",3000);
 				}
 				else if (retShot == 50){
-					screen.showMessage("Você acertou um submarino (3 pontos)");
+					screen.showWarnMsg("Você acertou um submarino (3 pontos)",3000);
 				}
-				
 			}
 			
 		}

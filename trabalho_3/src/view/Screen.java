@@ -42,12 +42,46 @@ public class Screen {
 		System.out.println(msg);
 	}
 	
+	public void showWarnMsg(String msg,int sleepTime){
+		
+		if (sleepTime < 1)
+			return;
+		
+		System.out.println(msg);
+		
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+	}
+	
 	public String showInputScreen(String msg){
 		
 		Scanner sc = new Scanner(System.in);
 		String ret = "";
 		
 		while (ret.equals("")){
+			System.out.print(msg + ":");
+			ret = sc.nextLine();
+		}
+		
+		return ret;
+	}
+	
+	public String showInputScreen(String msg,boolean vrfIn){
+		
+		Scanner sc = new Scanner(System.in);
+		String ret = "";
+		
+		if (vrfIn){
+			while (ret.equals("")){
+				System.out.print(msg + ":");
+				ret = sc.nextLine();
+			}
+		}
+		else {
 			System.out.print(msg + ":");
 			ret = sc.nextLine();
 		}
@@ -65,6 +99,7 @@ public class Screen {
 			}
 			System.out.print("\n");
 		}
+		System.out.println("------------------------------------------------------");
 		
 	}
 	
