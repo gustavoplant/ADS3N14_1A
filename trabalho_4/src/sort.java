@@ -4,47 +4,37 @@ public class sort {
 
 	public static void main(String[] args) {
 		
-		/*
-		int qtdNros = 8;
+		int qtdNros = 50;
 		
 		
-		int [] nros = new int[qtdNros];
-		int [] nros2 = new int[qtdNros + 1];
+		methods objM = new methods();
 		
-		methods objMethods = new methods();
+		int[] nrosDes = new int[qtdNros];
+		int[] nrosOrdIns = new int[qtdNros];
+		int[] nrosOrdHeap = new int[qtdNros];
 		
-		nros = objMethods.genList(qtdNros);
+		nrosDes= objM.genList(qtdNros);
 		
-		System.out.println("Array Original:");
+		InsertSort objIS = new InsertSort();
 		
-		for (int i = 0; i < nros.length;i++){
-			System.out.print(nros[i] + " ");
-		}
-		
-		nros2 = objMethods.insertSort(nros);
-		
-		System.out.println("\n\nArray ordenado:");
-		
-		for (int i = 0; i < nros2.length - 1;i++){
-			System.out.print(nros2[i] + " ");
-		}
+		System.out.println("*** ARRAY ORIGINAL DESORDENADO ***");
+		objM.printArr(nrosDes);
+		System.out.print("\n\n");
 		
 		
-		System.out.println("\n\nTotal de iteracoes: " + nros2[nros2.length - 1]);
-		*/
+		System.out.println("--> ORDENADO POR INSERT SORT <--");
+		nrosOrdIns = objIS.Sort(nrosDes);
+		objM.printArr(nrosOrdIns);
+		System.out.println(objIS.steps + " passos foram executados para finalizar a ordenação");
+		System.out.print("\n\n");
 		
-		int [] nros = {6,5,3,1,8,7,2,4};
-
-		int [] nros2 = new int[nros.length];
 		
-		HeapSort objHP = new HeapSort(nros);
+		System.out.println("--> ORDENADO POR HEAP SORT <--");
+		HeapSort objHS = new HeapSort(nrosDes);
+		nrosOrdHeap = objHS.sort();
+		objM.printArr(nrosOrdHeap);
+		System.out.println(objHS.steps + " passos foram executados para finalizar a ordenação");
 		
-		nros2 = objHP.sort();
-
-		for (int i=0; i < nros2.length; i++){
-			System.out.print(nros2[i] + " ");
-		}
-
 	}
 	
 

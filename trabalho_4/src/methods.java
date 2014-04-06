@@ -14,4 +14,12 @@ public class methods {
 		
 		return intArr;
 	}
+	
+	public void printArr (int[] aux) {
+		
+		for (int i = 0; i < aux.length; i++){
+			System.out.print(aux[i] + " ");
+		}
+		System.out.print("\n");
+	}
 }
