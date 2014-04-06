@@ -67,5 +67,23 @@ public class Screen {
 		}
 		
 	}
+	
+	public void printRaddar (int[][] arrIn){
+		
+		System.out.print("   A   B   C   D   E   F   G   H   I   J\n");
+		for (int l=0;l<=9;l++){
+			System.out.print(l +"  ");
+			for (int c=0;c<=9;c++){
+				if (arrIn[c][l] < 0){
+					System.out.print("*   ");
+				}
+				else {
+					System.out.print(arrIn[c][l] + "   ");
+				}
+			}
+			System.out.print("\n");
+		}
+		
+	}
 
 }

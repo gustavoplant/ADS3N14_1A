@@ -106,7 +106,7 @@ public class Tabuleiro extends Navio {
 				int col = cr;
 				int linha = lr;
 				
-				for (int i=0; i <= tam; i++){
+				for (int i=1; i <= tam; i++){
 					if (this.raddar[cr][lr] > -1){
 						livre = false;
 						break;
@@ -120,7 +120,7 @@ public class Tabuleiro extends Navio {
 					
 					int navID = frota.size() - 1;
 									
-					for (int i=0; i <= tam; i++){
+					for (int i=1; i <= tam; i++){
 						this.raddar[col][linha] = navID;
 						col++;
 					}

@@ -29,15 +29,16 @@ public class BattleController {
 		// porta aviões
 		tabuleiro.criarNavio(1,5,1);
 		frotaSize = frotaSize + 1;
-		/*
+
 		// destroyers
 		tabuleiro.criarNavio(2,4,2);
 		frotaSize = frotaSize + 2;
 		
+	/*	
 		// fragatas
 		tabuleiro.criarNavio(2,3,3);
 		frotaSize = frotaSize + 2;
-		
+	
 		// torpedeiros
 		tabuleiro.criarNavio(3,2,4);
 		frotaSize = frotaSize + 3;
@@ -45,7 +46,7 @@ public class BattleController {
 		// submarinos
 		tabuleiro.criarNavio(5,1,5);
 		frotaSize = frotaSize + 5;
-		*/
+*/
 		
 		
 		screen.showMessage("Bem vindo ao BatleField !!!");
@@ -58,10 +59,20 @@ public class BattleController {
 			screen.newScreen();
 			screen.showHead(jogador.getNome(), jogador.getPontos());
 			screen.printTabuleiro(tabuleiro.getBattleField());
+			
+			cmd = "";
 						
 			while (true){
 				
 				cmd = screen.showInputScreen("Insira a coordenada").toLowerCase();
+				
+				if (cmd.equals("pr")){
+					screen.showHead(" RADDAR VIEW " , 0);
+					screen.printRaddar(tabuleiro.getRaddar());
+					cmd = screen.showInputScreen("Insira qualquer entrada para continuar ...");
+					cmd = "next";
+					break;
+				}
 				
 				Pattern r = Pattern.compile("^[a-j][0-9]$");
 				Matcher m = r.matcher(cmd);
@@ -72,6 +83,10 @@ public class BattleController {
 				screen.showMessage("Coordenada incorreta, insira no formato coluna[a-j] linha[0-9]");
 			}
 			
+			if (cmd.equals("next")){
+				continue;
+			}
+			
 			char c = cmd.charAt(0);
 			char l = cmd.charAt(1);
 			
@@ -79,6 +94,11 @@ public class BattleController {
 			
 			if (retShot == -1){
 				screen.showMessage("Você já atirou neste ponto, tente outro ponto !!!");
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+
+				}
 				continue;
 			}
 			else if (retShot == 0){ // errou
