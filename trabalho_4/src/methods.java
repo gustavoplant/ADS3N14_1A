@@ -9,7 +9,7 @@ public class methods {
 		Random randomGen = new Random();
 		
 		for (int i = 0; i < qtd; i++){
-			intArr[i] = randomGen.nextInt(100);
+			intArr[i] = randomGen.nextInt(1000);
 		}
 		
 		return intArr;
