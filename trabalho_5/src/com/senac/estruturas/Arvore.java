@@ -21,7 +21,44 @@ public class Arvore {
 	}
 	
 	public void inserir(String[] key){
+		if (this.root == null){
+			this.root = new Node(key);
+			this.root.parent = null;
+		}
+		else{
+		  buscaPosicao(this.root,key);
+		}
+	}
+	
+	private void buscaPosicao(Node node, String[] key){
 		
+		int res;
+		
+		res = key[0].compareToIgnoreCase(node.key[0]);
+		
+		if(res < 0){ // se é para inserir a esquerda
+			
+			if(node.left == null){
+				node.left = new Node(key);
+				node.left.parent = node;
+			}
+			else
+				buscaPosicao(node.left,key);
+		  	}
+		
+		else if(res > 0){ // se é para inserir a direita
+			
+		   if(node.right == null){
+			   node.right = new Node(key);
+			   node.right.parent = node;
+		   }
+		   else{
+			   buscaPosicao(node.right, key);
+		   }
+		}
+		else { // valor inserido já existe na árvore
+			return;
+		}
 	}
 
 	public Node procurar(String key){
