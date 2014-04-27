@@ -30,6 +30,8 @@ public class Arvore {
 		}
 	}
 	
+	
+	
 	private void buscaPosicao(Node node, String[] key){
 		
 		int res;
@@ -60,10 +62,13 @@ public class Arvore {
 			return;
 		}
 	}
+	
+	
 
 	public Node procurar(String key){
 		
-		Node currentNode = this.root;  
+		Node currentNode = this.root;
+		this.comp = 0;
 	   
 		while(currentNode != null){
 			
@@ -84,5 +89,44 @@ public class Arvore {
 		return currentNode;
 	}
 	
+	public String[] procurarToArray(String key){
+		
+		Node resp = null;
+		String[] ret = {"",""};
+		
+		resp = this.procurar(key);
+		
+		if (resp == null){
+			return ret;
+		}
+		
+		ret[0] = resp.key[0];
+		ret[1] = resp.key[1];
+		return ret;
+	}
+	
+	public int deletar(String key){
+		
+		Node resp = procurar(key);
+		
+		if (resp != null){
+			
+			if (resp.left == null && resp.right == null){ // o nodo é uma folha
+				
+				if (resp.key[0].equals(resp.parent.left.key[0])){ // o nodo é folha esquerda do pai 
+					resp.parent.left = null;
+				}
+				else { // o nodo é folha direita do pai
+					resp.parent.right = null;
+				}
+				}
+				
+			}
+			
+		}
+		
+		return 0;
+		
+	}
 
 }
