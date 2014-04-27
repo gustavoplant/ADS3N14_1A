@@ -1,5 +1,6 @@
 package com.senac.apps.ListaTelefonicaBinaria.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Screen {
@@ -64,6 +65,17 @@ public class Screen {
 		System.out.println("TELEFONE: " + telefone);
 		System.out.println("QUANTIDADE DE COMPARAÇÕES: " + comp);
 		System.out.println("------------------------------------------------------------");
+	}
+	
+	public void showContactList(ArrayList<String[]> in,String order){
+		System.out.println("------------------- LISTAGEM DE CONTATOS ORDENACAO "+ order +" ---------------------");
+		for (int i=0;i<in.size();i++){
+			System.out.print(" Contato nro " + (i + 1));
+			System.out.print(" Nome:"+ in.get(i)[0]);
+			System.out.print(" Telefone:"+ in.get(i)[1]);
+			System.out.print(" |");
+		}
+		System.out.print("\n\n\n");
 	}
 	
 	public void showWarnMsg(String msg,int sleepTime){

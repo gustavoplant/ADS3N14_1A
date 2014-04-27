@@ -1,5 +1,7 @@
 package com.senac.estruturas;
 
+import java.util.ArrayList;
+
 public class Arvore {
 	
 	private Node root;
@@ -8,6 +10,14 @@ public class Arvore {
 	String tmp;
 	
 	
+	public Node getRoot() {
+		return root;
+	}
+
+	public void setRoot(Node root) {
+		this.root = root;
+	}
+
 	public Arvore(){
 		this.root = null;
 	}
@@ -183,5 +193,40 @@ public class Arvore {
 		
 		return nodoFinal; 
 	}
+	
+	public ArrayList<String[]> tPrefixa(ArrayList<String[]> param, Node raiz){
+		
+		
+		if (raiz != null ){
+			//System.out.print(raiz.key[0] + " ");
+			param.add(raiz.key);
+			tPrefixa(param,raiz.left);
+			tPrefixa(param,raiz.right);
+		}
+		
+		return param;
+		
+	}
+	
+	 public ArrayList<String[]> tInfixa (ArrayList<String[]> param, Node raiz){
+		 
+		 if (raiz != null){
+			 tInfixa(param,raiz.left);
+			 param.add(raiz.key);
+			 tInfixa(param,raiz.right);
+		 }
+		 
+		 return param;
+	 }
 
+	 public ArrayList<String[]> tPosFixa(ArrayList<String[]> param, Node raiz){
+		 
+		 if (raiz != null){
+			 tPosFixa(param,raiz.left);
+			 tPosFixa(param,raiz.right);
+			 param.add(raiz.key);
+		 }
+		 
+		 return param;
+	 }
 }

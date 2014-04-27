@@ -54,6 +54,45 @@ public class ListaTelefonicaController {
 				break;
 				
 				case 'l':
+					char sOpt = ' ';
+					boolean sair = false;
+					
+					while (!sair){
+					
+						sOpt = Character.toLowerCase(objScreen.showSingleInputScreen("Pressione:\n A - Travessia prefixa \n B - Travessia infixa\n C - Travessia posfixa\n D - Busca em largura\n E - Busca em profundidade", true));
+						
+						switch (sOpt){
+						
+							case 'a':
+								objScreen.showContactList(objContato.listarContatos(sOpt),"Travessia prefixa");
+								sair = true;
+							break;
+						
+							case 'b':
+								objScreen.showContactList(objContato.listarContatos(sOpt),"Travessia infixa");
+								sair = true;								
+							break;
+						
+							case 'c':
+								objScreen.showContactList(objContato.listarContatos(sOpt),"Travessia posfixa");
+								sair = true;								
+							break;
+						
+							case 'd':
+								objScreen.showContactList(objContato.listarContatos(sOpt),"Busca em largura");
+								sair = true;								
+							break;
+						
+							case 'e':
+								objScreen.showContactList(objContato.listarContatos(sOpt),"Busca em profundidade");
+								sair = true;								
+							break;
+							
+							default:
+								objScreen.showWarnMsg("Opção inválida de listagem", 3000);
+							break;
+						}
+					}
 				break;
 				
 				case 'e':

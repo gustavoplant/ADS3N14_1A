@@ -1,5 +1,7 @@
 package com.senac.apps.ListaTelefonicaBinaria.model;
 
+import java.util.ArrayList;
+
 import com.senac.estruturas.Arvore;
 
 public class Contato {
@@ -72,5 +74,32 @@ public class Contato {
 	
 	public int excluir(String nome){
 		return objArvore.deletar(nome);
+	}
+	
+	public ArrayList<String[]> listarContatos(char tipo){
+		
+		ArrayList<String[]> retList = new ArrayList<>();
+		
+		switch (tipo){
+			case 'a':
+				retList = objArvore.tPrefixa(retList,objArvore.getRoot());
+			break;
+			
+			case 'b':
+				retList = objArvore.tInfixa(retList,objArvore.getRoot());
+			break;
+			
+			case 'c':
+				retList = objArvore.tPosFixa(retList,objArvore.getRoot());
+			break;
+			
+			case 'd':
+			break;
+			
+			case 'e':
+			break;
+		}
+		
+		return retList;
 	}
 }
