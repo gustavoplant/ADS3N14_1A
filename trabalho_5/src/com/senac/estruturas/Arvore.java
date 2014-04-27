@@ -147,6 +147,8 @@ public class Arvore {
 				
 			}
 			
+			// FALTA IMPLEMENTAR A FUNÇÃO PRA EXCLUIR QDO O NODO TEM DOIS FILHOS
+			
 		}
 		
 		return 0;
