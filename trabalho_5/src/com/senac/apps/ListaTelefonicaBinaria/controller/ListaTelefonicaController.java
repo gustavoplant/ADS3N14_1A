@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -107,7 +108,7 @@ public class ListaTelefonicaController {
 				break;
 				
 				case 's':
-					//saveFile(contactFile);
+					saveFile(contactFile);
 					objScreen.showMessage("Aplicativo encerrado !");
 				break;
 			}
@@ -135,8 +136,19 @@ public class ListaTelefonicaController {
 		FileWriter arq = null;
 		try {
 			arq = new FileWriter(filename,false);
+			/* obtem uma listagem pos-fixa para evitar que os valores fiquem ordenados
+			 * no arquivo evitando uma árvode degenerada no carremento do arquivo
+			*/
+			ArrayList<String[]> lstFinal = new ArrayList<>();
 			
-			arq.append("aqui");
+			lstFinal = objContato.listarContatos('c');
+			
+			for (int i=0;i < lstFinal.size();i++){
+				arq.append(lstFinal.get(i)[0] +"\n");
+				arq.append(lstFinal.get(i)[1] +"\n");
+			}
+			
+			
 		} catch (IOException e) {
 			objScreen.showMessage(e.getMessage());
 		} finally {
