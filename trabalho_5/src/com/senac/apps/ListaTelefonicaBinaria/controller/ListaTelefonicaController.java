@@ -25,12 +25,13 @@ public class ListaTelefonicaController {
 		loadFile(contactFile);
 		
 		char opt = ' ';
+		String input;
 		
 		objScreen.showHead();
 		
 		while (opt != 's'){
 		
-			opt = Character.toLowerCase(objScreen.showSingleInputScreen("Pressione [I] para INSERIR, [P] para PROCURAR, [L] para LISTAR, [S] SAIR",true));
+			opt = Character.toLowerCase(objScreen.showSingleInputScreen("Pressione [I] para INSERIR, [E] para EXCLUIR, [P] para PROCURAR, [L] para LISTAR, [S] SAIR",true));
 		
 			switch (opt){
 				case 'i':
@@ -42,7 +43,7 @@ public class ListaTelefonicaController {
 				break;
 				
 				case 'p':
-					String input =  objScreen.showInputScreen("Insira o nome a ser pesquisado",true);
+					input =  objScreen.showInputScreen("Insira o nome a ser pesquisado",true);
 					
 					if (objContato.procurar(input)){
 						objScreen.showContact(objContato.getNome(),objContato.getTelefone(),objContato.getQtdComparacoes());
@@ -53,6 +54,17 @@ public class ListaTelefonicaController {
 				break;
 				
 				case 'l':
+				break;
+				
+				case 'e':
+					input =  objScreen.showInputScreen("Insira o nome a ser excluído",true);
+					
+					if(objContato.excluir(input) == 1){
+						objScreen.showWarnMsg("Contato Excluído com sucesso",2000);
+					}
+					else {
+						objScreen.showWarnMsg("Contato não encontrado",2000);
+					}
 				break;
 				
 				case 's':

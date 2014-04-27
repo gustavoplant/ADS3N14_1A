@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Screen {
 
+	Boolean debug = true;
 	
 	public void showHead(){
 		System.out.println("-----------------------------------------------------------");
@@ -40,6 +41,18 @@ public class Screen {
 		 * Exibe uma mensagem para o usuário
 		 */
 		System.out.println(msg);
+	}
+	
+	public void showDebugMessage(String msg){
+		if (this.debug){
+			System.out.println("DEBUG: " + msg);
+		}
+		try {
+			Thread.sleep(3000);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void showContact(String nome, String telefone, int comp){

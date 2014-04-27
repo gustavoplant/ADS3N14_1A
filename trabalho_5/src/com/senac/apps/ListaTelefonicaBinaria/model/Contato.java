@@ -69,4 +69,8 @@ public class Contato {
 		
 		objArvore.inserir(contato);
 	}
+	
+	public int excluir(String nome){
+		return objArvore.deletar(nome);
+	}
 }

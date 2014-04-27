@@ -115,10 +115,34 @@ public class Arvore {
 				
 				if (resp.key[0].equals(resp.parent.left.key[0])){ // o nodo é folha esquerda do pai 
 					resp.parent.left = null;
+					return 1;
 				}
 				else { // o nodo é folha direita do pai
 					resp.parent.right = null;
+					return 1;
 				}
+			}
+			else if (resp.left != null && resp.right == null){ // o nodo tem filho a esquerda
+				
+				if (resp.key[0].equals(resp.parent.left.key[0])){ // o nodo é folha esquerda do pai 
+					resp.parent.left = resp.left;
+					return 1;
+				}
+				else { // o nodo é folha direita do pai
+					resp.parent.right = resp.left;
+					return 1;
+				}
+				
+			}
+			else if (resp.left == null && resp.right != null){ // o nodo tem filho a direita
+				
+				if (resp.key[0].equals(resp.parent.left.key[0])){ // o nodo é folha esquerda do pai 
+					resp.parent.left = resp.right;
+					return 1;
+				}
+				else { // o nodo é folha direita do pai
+					resp.parent.right = resp.right;
+					return 1;
 				}
 				
 			}
