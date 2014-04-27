@@ -146,6 +146,21 @@ public class Arvore {
 				}
 				
 			}
+			else { // o nodo tem dois filhos
+				Node sucessor = null;
+				sucessor = buscaNodoEsquerdo(resp.right);
+				
+				if (sucessor.right != null){ // se sucessor tem filho a direita apontar a raiz do sucessor para esse filho
+					sucessor.parent.left = sucessor.right;
+				}
+				
+				if (resp.key[0].equals(resp.parent.left.key[0])){ // se nodo a ser removido é nodo filho esquerdo atualiza link na raiz para o sucesso
+					resp.parent.left = sucessor;
+				}
+				else { // senão nodo removido é filho direito
+					resp.parent.right = sucessor;
+				}
+			}
 			
 			// FALTA IMPLEMENTAR A FUNÇÃO PRA EXCLUIR QDO O NODO TEM DOIS FILHOS
 			
@@ -153,6 +168,20 @@ public class Arvore {
 		
 		return 0;
 		
+	}
+	
+	private Node buscaNodoEsquerdo(Node nodo){
+		
+		Node nodoFinal;
+				
+		if (nodo.left != null){
+			nodoFinal = buscaNodoEsquerdo(nodo.left);
+		}
+		else {
+			nodoFinal = nodo;
+		}
+		
+		return nodoFinal; 
 	}
 
 }
