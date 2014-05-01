@@ -1,6 +1,10 @@
 package com.senac.estruturas;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+import javax.management.Query;
 
 public class Arvore {
 	
@@ -228,5 +232,34 @@ public class Arvore {
 		 }
 		 
 		 return param;
+	 }
+	 
+	 public ArrayList<String[]> bLargura (ArrayList<String[]> param, Node raiz){
+		/*
+		 * função para gerar uma listagem dos itens da árvore utilizando o método de busca em largura
+		 */
+		 
+		 ArrayList<String[]> ret = new ArrayList<>();
+		 Queue<Node> lista = new LinkedList<>();
+		 Node tmpNode = null;
+		 
+		 lista.add(raiz);
+		 
+		 while (!lista.isEmpty()){
+			 
+			 tmpNode = lista.remove();
+			 ret.add(tmpNode.key);
+			 
+			 if (tmpNode.left != null){
+				 lista.add(tmpNode.left);
+			 }
+			 
+			 if (tmpNode.right != null){
+				 lista.add(tmpNode.right);
+			 }
+			 
+		 }
+		 
+		 return ret;
 	 }
 }

@@ -94,6 +94,7 @@ public class Contato {
 			break;
 			
 			case 'd':
+				retList = objArvore.bLargura(retList,objArvore.getRoot());
 			break;
 			
 			case 'e':
