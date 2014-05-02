@@ -125,6 +125,8 @@ public class ListaTelefonicaController {
 			while(arq.hasNext()) {				
 				objContato.cadastrar(arq.nextLine(), arq.nextLine());
 			}
+			
+			arq.close();
 		} 
 		catch (FileNotFoundException e) {
 			objScreen.showMessage(e.getMessage());

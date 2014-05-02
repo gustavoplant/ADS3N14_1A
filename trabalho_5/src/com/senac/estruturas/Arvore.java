@@ -3,8 +3,8 @@ package com.senac.estruturas;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
-import javax.management.Query;
 
 public class Arvore {
 	
@@ -256,6 +256,33 @@ public class Arvore {
 			 
 			 if (tmpNode.right != null){
 				 lista.add(tmpNode.right);
+			 }
+			 
+		 }
+		 
+		 return ret;
+	 }
+	 
+	 
+	 public ArrayList<String[]> bProfundidade (ArrayList<String[]> param, Node raiz){
+		 ArrayList<String[]> ret = new ArrayList<>();
+		 Stack<Node> pilha = new Stack<>();
+		 Node tmpNode = null;
+		 
+		 pilha.push(raiz);
+		 		 
+		 while (! pilha.isEmpty()){
+			 
+			 tmpNode = pilha.pop();	
+
+			 ret.add(tmpNode.key);
+
+			 if (tmpNode.left != null){
+				 pilha.push(tmpNode.left);
+			 }
+			 
+			 if (tmpNode.right != null){
+				 pilha.push(tmpNode.right);
 			 }
 			 
 		 }

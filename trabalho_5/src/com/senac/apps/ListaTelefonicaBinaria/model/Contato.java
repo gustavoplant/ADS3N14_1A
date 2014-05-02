@@ -98,6 +98,7 @@ public class Contato {
 			break;
 			
 			case 'e':
+				retList = objArvore.bProfundidade(retList,objArvore.getRoot());
 			break;
 		}
 		
