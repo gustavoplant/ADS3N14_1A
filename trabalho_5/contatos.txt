@@ -1,48 +1,50 @@
-Amanda
-(51) 1111116
-carla
-(51) 1111119
-cesar
-(51) 1111117
-daniela maccali
-(51) 88888888
-fulano
-(51) 1111112
-juca
-(51) 1111132
-juremar
-(51) 1111131
-marcos
-(51) 1111124
-patricia
-(51) 1111118
-paulo roberto
-(51) 1111126
-pedro simon
-(51) 9999999999
-renato
-(51) 1111129
-ubirajara farias
-(51) 1111127
-ze
-(51) 1111123
-sheila
-(51) 1111125
-ricardo
-(51) 1111120
-pedro
-(51) 1111121
-paulo ricardo
-(51) 1111122
-paulo
-(51) 1111115
-juca batista
-(51) 1111130
-gustavo
-(51) 1111111
-daniela
-(51) 1111128
-ciclano
-(51) 1111113
+badanha 16
+16 16 16 
 beltrano
 (51) 1111114
+ciclano
+(51) 1111113
+daniela
+(51) 1111128
+gustavo
+(51) 1111111
+juca batista
+(51) 1111130
+paulo
+(51) 1111115
+paulo ricardo
+(51) 1111122
+pedro
+(51) 1111121
+ricardo
+(51) 1111120
+sheila
+(51) 1111125
+ze
+(51) 1111123
+ubirajara farias
+(51) 1111127
+renato
+(51) 1111129
+pedro simon
+(51) 9999999999
+paulo roberto
+(51) 1111126
+patricia
+(51) 1111118
+marcos
+(51) 1111124
+juremar
+(51) 1111131
+juca
+(51) 1111132
+fulano
+(51) 1111112
+daniela maccali
+(51) 88888888
+cesar
+(51) 1111117
+carla
+(51) 1111119
+Amanda
+(51) 1111116

@@ -34,14 +34,28 @@ public class Arvore {
 		this.comp = comp;
 	}
 	
-	public void inserir(String[] key){
+	public int[] inserir(String[] key){
+		
+		int [] inf = new int[2];
+		ArrayList<String[]> tmpAL = new ArrayList<>();
+		
 		if (this.root == null){
 			this.root = new Node(key);
 			this.root.parent = null;
+			inf[0] = 1;
+			inf[1] = 1;
 		}
 		else{
-		  buscaPosicao(this.root,key);
+			
+			buscaPosicao(this.root,key);
+			inf[0] = alturaNodo(procurar(key[0]).parent,0);
+			
+			tmpAL = tPrefixa(tmpAL, this.root);
+			inf[1] = tmpAL.size();
+			
 		}
+		
+		return inf;
 	}
 	
 	
@@ -49,6 +63,7 @@ public class Arvore {
 	private void buscaPosicao(Node node, String[] key){
 		
 		int res;
+		
 		
 		res = key[0].compareToIgnoreCase(node.key[0]);
 		
@@ -72,12 +87,30 @@ public class Arvore {
 			   buscaPosicao(node.right, key);
 		   }
 		}
-		else { // valor inserido já existe na árvore
-			return;
-		}
+		
 	}
 	
-	
+	private int alturaNodo (Node nodo,int curr){
+		
+		int ret = 0;
+		
+		if (nodo.left == null && nodo.right == null && curr > 0){ // se o nodo não é folha, acrescentar 1
+			return curr + 1;
+		}
+		
+		else if (nodo.left == null && nodo.right == null){
+			return curr;
+		}
+		else {
+			if (nodo.left != null)
+				ret = alturaNodo(nodo.left, curr + 1);
+			
+			if (nodo.right != null)
+				ret = alturaNodo(nodo.right, curr + 1); 
+		}
+		
+		return ret;	
+	}
 
 	public Node procurar(String key){
 		
@@ -175,9 +208,6 @@ public class Arvore {
 					resp.parent.right = sucessor;
 				}
 			}
-			
-			// FALTA IMPLEMENTAR A FUNÇÃO PRA EXCLUIR QDO O NODO TEM DOIS FILHOS
-			
 		}
 		
 		return 0;

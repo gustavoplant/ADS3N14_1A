@@ -28,6 +28,7 @@ public class ListaTelefonicaController {
 		char opt = ' ';
 		String input;
 		
+		
 		objScreen.showHead();
 		
 		while (opt != 's'){
@@ -37,10 +38,12 @@ public class ListaTelefonicaController {
 			switch (opt){
 				case 'i':
 					
+					int[] inf = new int[2];
+					
 					String nome =  objScreen.showInputScreen("Insira o nome",true);
 					String tel =  objScreen.showInputScreen("Insira o telefone",true);
-					objContato.cadastrar(nome, tel);
-					
+					inf = objContato.cadastrar(nome, tel);
+					objScreen.showWarnMsg("Altura do nodo raiz: "+ inf[0] + " número de elementos na árvore: " + inf[1] , 3000);
 				break;
 				
 				case 'p':

@@ -64,12 +64,14 @@ public class Contato {
 		}
 	}
 	
-	public void cadastrar(String nome, String telefone){
+	public int[] cadastrar(String nome, String telefone){
+		int [] inf = new int[2];
 		String[] contato = {"",""};
 		contato[0] = nome;
 		contato[1] = telefone;
 		
-		objArvore.inserir(contato);
+		inf = objArvore.inserir(contato);
+		return inf;
 	}
 	
 	public int excluir(String nome){
