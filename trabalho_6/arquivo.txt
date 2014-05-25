@@ -1,0 +1,7 @@
+andre=16
+edu=20
+outro=4
+mais um=3
+teste=54
+testdse=52
+outro teste=2
