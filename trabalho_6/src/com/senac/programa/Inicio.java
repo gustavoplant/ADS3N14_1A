@@ -14,7 +14,7 @@ public class Inicio {
 		Arvore arvoreRB = new Arvore();
 		
 		for (int i=0; i< lstDesordenada.length;i++){
-			arvoreAVL.inserir(lstDesordenada[i], 2);
+			arvoreAVL.inserir(lstDesordenada[i], false);
 		}
 
 	}

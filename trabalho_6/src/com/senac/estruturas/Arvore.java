@@ -20,10 +20,10 @@ public class Arvore {
         }
     }
     
-    public void inserir(String chave, int cor){
+    public void inserir(String chave, boolean cor){
     	
         if(this.raiz == null){
-            this.raiz = new Node(chave,1);
+            this.raiz = new Node(chave,true);
             this.raiz.parent = null;
         }else{
             inserirValor(this.raiz,chave,cor);
@@ -55,7 +55,7 @@ public class Arvore {
 		}
     }
     
-    private void inserirValor(Node node,String key,int cor){
+    private void inserirValor(Node node,String key,boolean cor){
     	
 		int res;
 		res = key.compareToIgnoreCase(node.key);
@@ -83,85 +83,84 @@ public class Arvore {
     	
     }
     
+    
     private Node getTio(Node no){
-        
-        if(no.parent!= null && no.parent.parent == null){
-            if(no.parent.left == no){
-                return no.right;
-            }else{
-                return no.left;
-            }
-        }else if(no.parent != null && no.parent.parent != null){
-            if(no.parent.parent.left == no.parent){
-                return no.parent.parent.right;
-            }else{
-                return no.parent.parent.left;
-                
-            }
-        }else{
-            return null;
-        }
+    	
+    	if (no.parent.parent != null){
+    		
+    		if (no.parent.parent.right == no.parent){
+    			if (no.parent.parent.left != null){
+    				return no.parent.parent.left;
+    			}
+    		}
+    		else if (no.parent.parent.left == no.parent){
+    			if (no.parent.parent.right != null){
+    				return no.parent.parent.right;
+    			}
+    		}
+    	}
+
+    	return new Node();
         
     }
     
     private void caso1(Node no){
         if(no.parent == null){
-            no.color = 1;
-        }else{
-            caso2(no);
+            no.color = true;
+        }
+        else{
+        	caso2(no);
         }
     }
     
     private void caso2(Node no){
-        if(no.parent.color == 1){
-        
-        }else{
-            caso3(no);
+    	
+        if(no.parent.color == false){
+        	caso3(no);
         }
+        
     }
     private void caso3(Node no){
     	
-    	Node tmpTio = getTio(no);
-    	
-    	if (tmpTio != null){
-        
-	        if(tmpTio.color == 2 && no.parent.color == 2){
-	            no.parent.color = 1;
-	            tmpTio.color = 1;
-	            if(no.parent.parent != null){
-	                no.parent.parent.color = 2;
-	                caso1(no.parent.parent);
-	            } 
-	        }else{
-	            caso4(no);
-	        }
-    	}
-    	else{
-    		caso4(no);
-    	}
-    		
+	    if(getTio(no).color == false && no.parent.color == false){
+	        no.parent.color = true;
+	        getTio(no).color = true;
+	        no.parent.parent.color = false;
+            caso1(no.parent.parent); 
+	    }else{
+	        caso4(no);
+	    }
+	    
     }
     
     private void caso4(Node no){
-        if(no == no.parent.right && no.parent == no.parent.parent.left){
-            rotacionaEsq(no.parent);
-            no = no.left;
-        }else if(no == no.parent.left && no.parent == no.parent.parent.right){
-            rotacionaDir(no.parent);
-            no = no.right;
+        if(no.parent.color == false && getTio(no).color == true){
+        	if (no.parent.right == no && no.parent.parent.left == no.parent){
+        		rotacionaEsq(no.parent);
+        	}
+        	else if (no.parent.parent.right == no.parent && no.parent.left == no){
+        		rotacionaDir(no);
+        		no = no.parent;
+        	}
         }
-        caso5(no);
+        caso5(no.parent);
     }
     
     private void caso5(Node no){
-        no.parent.color = 1;
-        getTio(no).color = 2;
-        if(no == no.parent.left && no.parent ==no.parent.parent.left){
-            rotacionaDir(no.parent.parent);
-        }else{
-            assert no == no.parent.right && no.parent == no.parent.parent.right;
-            rotacionaEsq(no.parent.parent);
-        }
+    	
+
+    	if(no.parent.color == false && getTio(no).color == true){
+            no.parent.color = true;
+            getTio(no).color = false;
+    	}
+    	
+    	if (no.parent == no.parent.parent.right){
+    		rotacionaEsq(no.parent.parent);
+    	}
+    	else {
+    		rotacionaDir(no.parent.parent);
+    	}
+        
     }
     
     
