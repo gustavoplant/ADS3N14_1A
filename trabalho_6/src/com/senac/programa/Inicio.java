@@ -1,5 +1,7 @@
 package com.senac.programa;
 
+import com.senac.estruturas.Arvore;
+
 public class Inicio {
 
 	public static void main(String[] args) {
@@ -8,7 +10,12 @@ public class Inicio {
 		String[] lstOrdenada = {"Abacaxi","Alface","Amendoim","Amoníaco","Bacalhau","Bacon","Bala","Banana","Batata","Café","Cebola","Cenoura","Chá","chocolatado","Chocolate","Chuchu","Esponja","Fermento","Fósforo","Gelatina","Geléia","Goiabada","Guardanapo","Iogurte","Lâmpada","Laranja","Leite","Limão","Linguiça","Maçã","Maisena","Mamão","Manteiga","Maracujá","Mistura","Mortadela","Ovos","Pastel","Pilha","Pimentão","Polvilho","Pudim","Repolho","Requeijão","Rodo","Salame","Salgadinho","Salsicha","Tomate","Vagem"};
 		String[] lstInversa = {"Vagem","Tomate","Salsicha","Salgadinho","Salame","Rodo","Requeijão","Repolho","Pudim","Polvilho","Pimentão","Pilha","Pastel","Ovos","Mortadela","Mistura","Maracujá","Manteiga","Mamão","Maisena","Maçã","Linguiça","Limão","Leite","Laranja","Lâmpada","Iogurte","Guardanapo","Goiabada","Geléia","Gelatina","Fósforo","Fermento","Esponja","Chuchu","Chocolate","chocolatado","Chá","Cenoura","Cebola","Café","Batata","Banana","Bala","Bacon","Bacalhau","Amoníaco","Amendoim","Alface","Abacaxi"};
 		
+		Arvore arvoreAVL = new Arvore();
+		Arvore arvoreRB = new Arvore();
 		
+		for (int i=0; i< lstDesordenada.length;i++){
+			arvoreAVL.inserir(lstDesordenada[i], 2);
+		}
 
 	}
 

@@ -23,7 +23,7 @@ public class Arvore {
     public void inserir(String chave, int cor){
     	
         if(this.raiz == null){
-            this.raiz = new Node(chave,cor);
+            this.raiz = new Node(chave,1);
             this.raiz.parent = null;
         }else{
             inserirValor(this.raiz,chave,cor);
@@ -64,20 +64,20 @@ public class Arvore {
 			if(node.left == null){
 				node.left = new Node(key,cor);
 				node.left.parent = node;
-				caso1(node);
+				caso1(node.left);
 			}
 			else {
-				inserirValor(node.left,key);
+				inserirValor(node.left,key,cor);
 			}
 		}
 		else if(res > 0){ // se é para inserir a direita
 			if(node.right == null){
 				node.right = new Node(key,cor);
 				node.right.parent = node;
-				caso1(node);
+				caso1(node.right);
 			}
 			else{
-				inserirValor(node.right,key);
+				inserirValor(node.right,key,cor);
 			}
 		}
     	
@@ -120,17 +120,26 @@ public class Arvore {
         }
     }
     private void caso3(Node no){
+    	
+    	Node tmpTio = getTio(no);
+    	
+    	if (tmpTio != null){
         
-        if(getTio(no).color == 2){
-            no.parent.color = 1;
-            getTio(no).color = 1;
-            if(no.parent.parent != null){
-                no.parent.parent.color = 2;
-                caso1(no.parent.parent);
-            } 
-        }else{
-            caso4(no);
-        }
+	        if(tmpTio.color == 2 && no.parent.color == 2){
+	            no.parent.color = 1;
+	            tmpTio.color = 1;
+	            if(no.parent.parent != null){
+	                no.parent.parent.color = 2;
+	                caso1(no.parent.parent);
+	            } 
+	        }else{
+	            caso4(no);
+	        }
+    	}
+    	else{
+    		caso4(no);
+    	}
+    		
     }
     
     private void caso4(Node no){
