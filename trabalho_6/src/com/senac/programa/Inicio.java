@@ -12,15 +12,23 @@ public class Inicio {
 		
 		Arvore arvoreAVL = new Arvore();
 		Arvore arvoreRB = new Arvore();
-		
-		arvoreAVL.inserir("primeira");
-		
+				
 		for (int i=0; i< lstDesordenada.length;i++){
 			arvoreRB.inserir(lstDesordenada[i], false);
 		}
 
 		System.out.println("Foram feitas "+ arvoreRB.getComp() + " comparações e "+ arvoreRB.getRot() +" rotações e a altura da raiz é "+ arvoreRB.alturaRaiz());
 		
+		String keyNodoRem = "Cebola";
+		
+		System.out.println("Removendo nodo com a chave "+ keyNodoRem);
+		
+		if (arvoreRB.deletar(keyNodoRem) == 1){
+			System.out.println("Nodo removido com sucesso foram "+ arvoreRB.getComp() +" comparações e "+ arvoreRB.getRot() + " rotações");
+		}
+		else {
+			System.out.println("Valor não encontrado na árvore");
+		}
 
 	}
 
