@@ -5,6 +5,23 @@ package com.senac.estruturas;
 public class Arvore {
     
     public Node raiz;
+	public int comp = 0;
+    public int rot = 0;
+    
+    public int getComp() {
+		return comp;
+	}
+	public int getRot() {
+		return rot;
+	}
+
+	public void setComp(int comp) {
+		this.comp = comp;
+	}
+
+	public void setRot(int rot) {
+		this.rot = rot;
+	}
     
     public Arvore(){
         this.raiz = null;
@@ -34,6 +51,7 @@ public class Arvore {
     	
 		int res;
 		res = key.compareToIgnoreCase(node.key);
+		this.comp++;
 		
 		if(res < 0){ // se é para inserir a esquerda
 			if(node.left == null){
@@ -59,6 +77,7 @@ public class Arvore {
     	
 		int res;
 		res = key.compareToIgnoreCase(node.key);
+		this.comp++;
 		
 		if(res < 0){ // se é para inserir a esquerda
 			if(node.left == null){
@@ -104,6 +123,22 @@ public class Arvore {
         
     }
     
+    private Node getIrmao(Node no){
+    	if (no.parent.left == no){
+    		if (no.parent.right == null){
+    			return new Node();
+    		}
+    		return no.parent.right;
+    		
+    	}
+    	else {
+    		if (no.parent.left == null){
+    			return new Node();
+    		}
+    		return no.parent.left;
+    	}
+    }
+    
     private void caso1(Node no){
         if(no.parent == null){
             no.color = true;
@@ -125,7 +160,6 @@ public class Arvore {
 	    if(getTio(no).color == false && no.parent.color == false){
 	        no.parent.color = true;
 	        getTio(no).color = true;
-	        no.parent.parent.color = false;
             caso1(no.parent.parent); 
 	    }else{
 	        caso4(no);
@@ -134,37 +168,39 @@ public class Arvore {
     }
     
     private void caso4(Node no){
+    	
+    	Node tmpParent = no.parent; 
         if(no.parent.color == false && getTio(no).color == true){
-        	if (no.parent.right == no && no.parent.parent.left == no.parent){
+        	if (no.parent.left == no && no.parent.parent.right == no.parent){
+        		rotacionaDir(no.parent);
+        	}
+        	else if (no.parent.right == no && no.parent.parent.left == no.parent){
         		rotacionaEsq(no.parent);
         	}
-        	else if (no.parent.parent.right == no.parent && no.parent.left == no){
-        		rotacionaDir(no);
-        		no = no.parent;
-        	}
+        	caso5(tmpParent);
         }
-        caso5(no.parent);
     }
+    
     
     private void caso5(Node no){
     	
-
-    	if(no.parent.color == false && getTio(no).color == true){
+    	if(no.parent.color == false && getTio(no).color == false){
             no.parent.color = true;
-            getTio(no).color = false;
-    	}
+            getTio(no).color = true;
+            no.parent.parent.color = false;
     	
-    	if (no.parent == no.parent.parent.right){
-    		rotacionaEsq(no.parent.parent);
+	    	if (no.parent.left == no && no.parent.parent.left == no.parent){
+	    		rotacionaDir(no.parent.parent);
+	    	}
+	    	else if (no.parent.right == no && no.parent.parent.right == no.parent){
+	    		rotacionaEsq(no.parent.parent);
+	    	}
     	}
-    	else {
-    		rotacionaDir(no.parent.parent);
-    	}
-        
     }
     
     
     private void rotacionaEsq(Node no){
+    	this.rot++;
         Node n = no.right;
         substituiNodo(no, n);
         no.right = n.left;
@@ -175,6 +211,7 @@ public class Arvore {
         no.parent = n;
     }
     private void rotacionaDir(Node no){
+    	this.rot++;
         Node n = no.left;
         substituiNodo(no, n);
         no.left = n.right;
@@ -199,6 +236,33 @@ public class Arvore {
             novo.parent = velho.parent;
         }
     }
+    
+    
+    public int alturaRaiz(){
+    	return this.alturaNodo(this.raiz,0);
+    }
+    
+	private int alturaNodo (Node nodo,int curr){
+		
+		int ret = 0;
+		
+		if (nodo.left == null && nodo.right == null && curr > 0){ // se o nodo não é folha, acrescentar 1
+			return curr + 1;
+		}
+		
+		else if (nodo.left == null && nodo.right == null){
+			return curr;
+		}
+		else {
+			if (nodo.left != null)
+				ret = alturaNodo(nodo.left, curr + 1);
+			
+			if (nodo.right != null)
+				ret = alturaNodo(nodo.right, curr + 1); 
+		}
+		
+		return ret;	
+	}
     
      public Node removeNo(Node no,String key){
     	 

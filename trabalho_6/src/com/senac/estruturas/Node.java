@@ -7,7 +7,7 @@ public class Node {
     public Node left;
     public Node right;
     public Node parent;
-    boolean color; // 0 - sem cor / 1 - preto (true)/ 2 - verm (false)
+    boolean color;
     
     public Node (){
     	/*

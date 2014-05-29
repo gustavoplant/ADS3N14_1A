@@ -13,9 +13,14 @@ public class Inicio {
 		Arvore arvoreAVL = new Arvore();
 		Arvore arvoreRB = new Arvore();
 		
+		arvoreAVL.inserir("primeira");
+		
 		for (int i=0; i< lstDesordenada.length;i++){
-			arvoreAVL.inserir(lstDesordenada[i], false);
+			arvoreRB.inserir(lstDesordenada[i], false);
 		}
+
+		System.out.println("Foram feitas "+ arvoreRB.getComp() + " comparações e "+ arvoreRB.getRot() +" rotações e a altura da raiz é "+ arvoreRB.alturaRaiz());
+		
 
 	}
 
