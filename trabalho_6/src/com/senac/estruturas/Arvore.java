@@ -204,6 +204,7 @@ public class Arvore {
     
     
     private void rotacionaEsq(Node no){
+    	//System.out.println("rotacionou a esquerda");
     	this.rot++;
         Node n = no.right;
         substituiNodo(no, n);
@@ -215,6 +216,7 @@ public class Arvore {
         no.parent = n;
     }
     private void rotacionaDir(Node no){
+    	//System.out.println("rotacionou a direita");
     	this.rot++;
         Node n = no.left;
         substituiNodo(no, n);
@@ -267,60 +269,7 @@ public class Arvore {
 		
 		return ret;	
 	}
-    
-	/*
-     public Node removeNo(Node no,String key){
-    	 
-    	 int res;
          
-         if(no != null){
-        	 
-        	 res = key.compareToIgnoreCase(no.key);
-
-        	 if(res < 0){ // se chave nodo maior
-        		 no.left = removeNo(no.left, key);
-        	 }
-        	 else if(res > 0){ // se key maior que nodo
-        		 no.right = removeNo(no.right, key);
-        	 }
-        	 else{
-        		 
-                 if(no.right != null && no.left != null){
-                     no.key = encontraMin(no.right).key;
-                     no.right = removeMin(no.right);
-                 }else{
-                     no = (no.left != null) ? no.left : no.right;
-                 }
-        	 }
-             return no;
-         }
-         else{
-             return null;
-         }
-     }
-     
-     public Node removeMin(Node no){
-         if(no != null){
-             if(no.left != null){
-                 no.left = removeMin(no.left);
-                 return no;
-             }else{
-                 return no.right;
-             }
-         }
-         return null;
-     }
-     
-     public Node encontraMin(Node no){
-         if(no != null){
-             while(no.left != null){
-                 no = no.left;
-             }
-         }
-         return no;
-     }
-     */
-     
 	public Node procurar(String key){
 		
 		Node currentNode = this.raiz;
