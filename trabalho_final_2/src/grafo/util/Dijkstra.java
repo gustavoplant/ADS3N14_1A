@@ -11,7 +11,7 @@ public class Dijkstra {
     private Set<Vertice> nodeMarcado;
     private Set<Vertice> nodeNaoMarcado;
     private Map<Vertice, Vertice> precedentes;
-    private Map<Vertice, Double> custo;
+    public Map<Vertice, Double> custo;
     
     public Dijkstra(Grafo g) {
         this.nodes = new ArrayList<Vertice>(g.getVertices());
@@ -96,8 +96,10 @@ public class Dijkstra {
     
     
     
-    public void getCaminho(Vertice alvo) {
+    public ArrayList<Vertice> getCaminho(Vertice alvo) {
+    	
         LinkedList<Vertice> path = new LinkedList<Vertice>();
+        ArrayList<Vertice> retVert = new ArrayList<>();
         
         Vertice c = alvo;
         
@@ -110,7 +112,10 @@ public class Dijkstra {
         
         
         Collections.reverse(path);
+                
+        retVert.addAll(path);
         
+        /*
         String saida="";
         double d = 0;
         for (Vertice vertice : path) {
@@ -123,6 +128,9 @@ public class Dijkstra {
         
         System.out.println("E a menor custo é: ");
         System.out.println(d);
+        */
+        
+        return retVert;
         
     }
 }

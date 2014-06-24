@@ -21,9 +21,9 @@ public class Main {
         System.out.println(g);
         
         
-        System.out.print("Digite o vertice de origem: ");
+        System.out.print("Digite o ponto de PARTIDA: ");
         origem = ler.nextInt();
-        System.out.print("Digite o vertice de destino: ");
+        System.out.print("Digite o ponto de DESTINO: ");
         destino = ler.nextInt();
         calculaCaminho(g,origem,destino);
         
@@ -33,34 +33,19 @@ public class Main {
     public static void calculaCaminho(Grafo g,int origem,int destino){
         List<Vertice> nodes = g.getVertices();
         Dijkstra d = new Dijkstra(g);
+        ArrayList<Vertice> caminho;
+        Double custoTotal = 0.0;
+        
         
         d.calcula(nodes.get(origem));        
-        d.getCaminho(nodes.get(destino));
+        caminho = d.getCaminho(nodes.get(destino));
+        custoTotal = d.custo.get(caminho.get(caminho.size() - 1));
+        
+        System.out.println("---- CALCULANDO ROTA DO PONTO "+ origem + " ATÉ O PONTO "+ destino +" -------------------");
     }
      
     public static void leArquivo(Grafo grafo) throws FileNotFoundException, IOException{
-    	
-    	/*
-    	grafo.addAresta(grafo.addVertice(0,10.3,8.7), grafo.addVertice(1,11.8,3.4), 2);
-    	grafo.addAresta(grafo.addVertice(0,10.3,8.7), grafo.addVertice(2,11.8,3.4), 4);
-    	
-    	grafo.addAresta(grafo.addVertice(1,10.3,8.7), grafo.addVertice(0,11.8,3.4), 2);
-    	grafo.addAresta(grafo.addVertice(1,10.3,8.7), grafo.addVertice(2,11.8,3.4), 5);
-    	grafo.addAresta(grafo.addVertice(1,10.3,8.7), grafo.addVertice(3,11.8,3.4), 1);
-    	
-    	grafo.addAresta(grafo.addVertice(2,10.3,8.7), grafo.addVertice(0,11.8,3.4), 4);
-    	grafo.addAresta(grafo.addVertice(2,10.3,8.7), grafo.addVertice(1,11.8,3.4), 5);
-    	grafo.addAresta(grafo.addVertice(2,10.3,8.7), grafo.addVertice(3,11.8,3.4), 6);
-    	grafo.addAresta(grafo.addVertice(2,10.3,8.7), grafo.addVertice(4,11.8,3.4), 2);
-    	
-    	grafo.addAresta(grafo.addVertice(3,10.3,8.7), grafo.addVertice(1,11.8,3.4), 1);
-    	grafo.addAresta(grafo.addVertice(3,10.3,8.7), grafo.addVertice(2,11.8,3.4), 6);
-    	grafo.addAresta(grafo.addVertice(3,10.3,8.7), grafo.addVertice(4,11.8,3.4), 3);
-    	
-    	grafo.addAresta(grafo.addVertice(4,10.3,8.7), grafo.addVertice(2,11.8,3.4), 2);
-    	grafo.addAresta(grafo.addVertice(4,10.3,8.7), grafo.addVertice(3,11.8,3.4), 3);
-    	*/
-    	
+    	    	
     	ArrayList<Vertice> lstVert = new ArrayList<>();
     	
         FileInputStream fstream = new FileInputStream("grafo.txt");
