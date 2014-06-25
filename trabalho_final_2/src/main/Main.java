@@ -6,6 +6,7 @@ import grafo.util.Aresta;
 import grafo.util.Grafo;
 import grafo.util.Vertice;
 import java.io.*;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -51,25 +52,29 @@ public class Main {
         
         Carro veiculo = new Carro(40.0,15.0,180,180.0);
         
-        System.out.println("---- CALCULANDO ROTA DO PONTO "+ origem + " ATÉ O PONTO "+ destino +" partindo com tanque cheio -------------------\n");
+        System.out.println("\n---- CALCULANDO MENOR ROTA DO PONTO "+ origem + " ATÉ O PONTO "+ destino +" partindo com tanque cheio -------------------\n");
         
         int i = 0;
         
         do {
         	
         	if (i == caminho.size() - 1){
+
+        		double dist = round(veiculo.getOdometro(),3);
+        		double comb = round(dist / veiculo.getConsumo(),3);
+        		double ped = round(custoPedagio,2);
+        		double custComb = round((valorComb * comb),2);
+        	
         		
-        		DecimalFormat df2 = new DecimalFormat("#.##");
-        		DecimalFormat df3 = new DecimalFormat("#.###");
-        		
+        		        		
         		System.out.println("CHEGOU NO DESTINO FINAL !\n");
         		
-        		System.out.println("\n\n---- ESTATÍSTICAS -----");
-        		System.out.println("Km percorridos: " + df3.format(veiculo.getOdometro()));
-        		System.out.println("Combustível utilizado: " + df3.format(veiculo.getLitrosConsumidos()) + " litros");
-        		System.out.println("Custo com pedágio: R$ " + df2.format(custoPedagio));
-        		System.out.println("Custo com combustível: R$ " + df2.format(valorComb * veiculo.getLitrosConsumidos()));
-        		System.out.println("\nCUSTO TOTAL: R$ " + df2.format((valorComb * veiculo.getLitrosConsumidos() + custoPedagio)));
+        		System.out.println("\n---- ESTATÍSTICAS -----");
+        		System.out.println("Km percorridos: " + dist);
+        		System.out.println("Combustível utilizado: " + comb + " litros");
+        		System.out.println("Custo com pedágio: R$ " + ped);
+        		System.out.println("Custo com combustível: R$ " + custComb);
+        		System.out.println("\nCUSTO TOTAL: R$ " + (custComb + ped));
 
         		
         		
@@ -94,6 +99,15 @@ public class Main {
         
         } while (i < caminho.size());
         
+    }
+    
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
      
     public static void leArquivo(Grafo grafo) throws FileNotFoundException, IOException{

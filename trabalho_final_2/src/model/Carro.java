@@ -9,7 +9,6 @@ public class Carro {
 	private double tanque; // em litros
 	private int tempoDirecao; // em minutos
 	private double velocidade; // em Km/h
-	private double litrosConsumidos; // contabiliza os litros consumidos
 	private double odometro; // em km
 	
 		
@@ -52,15 +51,7 @@ public class Carro {
 	public void setVelocidade(double velocidade) {
 		this.velocidade = velocidade;
 	}
-	
-	public double getLitrosConsumidos() {
-		return litrosConsumidos;
-	}
-
-	public void setLitrosConsumidos(double litrosConsumidos) {
-		this.litrosConsumidos = litrosConsumidos;
-	}
-	
+		
 	public double getOdometro() {
 		return odometro;
 	}
@@ -80,7 +71,6 @@ public class Carro {
 	
 	// reabastece o tanque completando-o
 	public void reabastecer (){
-		this.litrosConsumidos += this.capTanque - this.tanque;
 		this.tanque = this.capTanque;
 	}
 	
