@@ -114,22 +114,7 @@ public class Dijkstra {
         Collections.reverse(path);
                 
         retVert.addAll(path);
-        
-        /*
-        String saida="";
-        double d = 0;
-        for (Vertice vertice : path) {
-            saida += vertice.getNome() + " --> ";
-            d= custo.get(vertice);
-        }
-        
-        System.out.println("O menor caminho ate o vertice "+alvo.getNome()+" é: ");
-        System.out.println(saida);
-        
-        System.out.println("E a menor custo é: ");
-        System.out.println(d);
-        */
-        
+                
         return retVert;
         
     }
