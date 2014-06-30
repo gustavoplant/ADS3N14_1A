@@ -8,10 +8,12 @@ public class Carro {
 	private double capTanque; // em litros
 	private double tanque; // em litros
 	private int tempoDirecao; // em minutos
+	private int tempoMaxDir; // em minutos
 	private double velocidade; // em Km/h
-	private double odometro; // em km
+	private double odometroViagem; // em km
+	private double odometroTotal; // em km
 	
-		
+
 	public double getConsumo() {
 		return consumo;
 	}
@@ -52,21 +54,37 @@ public class Carro {
 		this.velocidade = velocidade;
 	}
 		
-	public double getOdometro() {
-		return odometro;
+	public double getOdometroViagem() {
+		return odometroViagem;
 	}
 
-	public void setOdometro(double odometro) {
-		this.odometro = odometro;
+	public void setOdometroViagem(double odometroViagem) {
+		this.odometroViagem = odometroViagem;
+	}
+	
+	public int getTempoMaxDir() {
+		return tempoMaxDir;
+	}
+
+	public void setTempoMaxDir(int tempoMaxDir) {
+		this.tempoMaxDir = tempoMaxDir;
+	}
+	
+	public double getOdometroTotal() {
+		return odometroTotal;
+	}
+
+	public void setOdometroTotal(double odometroTotal) {
+		this.odometroTotal = odometroTotal;
 	}
 
 	public Carro(double capTanque, double consumo, int tempoDirecao, double velocidade){
 		this.capTanque = capTanque;
 		this.consumo = consumo;
-		this.tempoDirecao = tempoDirecao;
+		this.tempoMaxDir = this.tempoDirecao = tempoDirecao;
 		this.velocidade = velocidade;
 		this.tanque = this.capTanque;
-		this.odometro = 0.0;
+		this.odometroViagem = 0.0;
 	}
 	
 	// reabastece o tanque completando-o
@@ -85,8 +103,11 @@ public class Carro {
 		// desconta tempo de direcao
 		this.tempoDirecao = tempoDirecao - (int)( km / velocidade * 60);
 		
-		// incrementa odometro
-		this.odometro += km;
+		// incrementa odometroViagem
+		this.odometroViagem += km;
+		
+		// incrementa odometroTotal
+		this.odometroTotal += km;
 	}
 	
 	public boolean checarTempo(Vertice origem,Vertice destino){
@@ -115,7 +136,7 @@ public class Carro {
 		}
 	}
 	
-	private double calculaDistancia(Vertice origem,Vertice destino){
+	public double calculaDistancia(Vertice origem,Vertice destino){
 		return (float) Math.sqrt(Math.pow((destino.getPosX() - origem.getPosX()),2) + Math.pow((destino.getPosY() - origem.getPosY()),2));
 	}
 }

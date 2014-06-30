@@ -22,83 +22,161 @@ public class Main {
      public static void main(String[] args) throws FileNotFoundException, IOException {
     	
         Scanner ler = new Scanner(System.in);
+        String[] pontosPass;
+        ArrayList<Integer> pontos = new ArrayList<>();
         int origem,destino;
         Grafo g = new Grafo();
         leArquivo(g);
         //System.out.println(g);
         
         
-        System.out.print("Digite o ponto de PARTIDA: ");
-        origem = ler.nextInt();
-        System.out.print("Digite o ponto de DESTINO: ");
-        destino = ler.nextInt();
+        System.out.print("Digite os pontos de passagem separados por vírgula: ");
+        pontosPass = ler.next().split(",");
         System.out.print("Digite o preço do combustível: ");
         valorComb = Double.parseDouble(ler.next());
-        calculaCaminho(g,origem,destino);
+                
+        for (int i = 0;i < pontosPass.length;i++){
+        	pontos.add(Integer.parseInt(pontosPass[i]));
+        }
         
         
+        
+        calculaCaminho(g,pontos);
+        
+        System.out.print("\n\n... processamento finalizado !\n");
     }
-     
-    public static void calculaCaminho(Grafo g,int origem,int destino){
+           
+    public static void calculaCaminho(Grafo g,ArrayList<Integer> pts){
+    	
         List<Vertice> nodes = g.getVertices();
         Dijkstra d = new Dijkstra(g);
-        ArrayList<Vertice> caminho;
+        ArrayList<Integer> trajeto = new ArrayList<>(); // guarda o trajeto final a ser percorrido
+        ArrayList<Vertice> caminho; // guarda o caminho de um ponto ao outro
+        int pos = -1;
         Double custoPedagio = 0.0;
+        Double menorCusto = null;
+        Double custoTotal;
         
+        // cria um novo objeto carro
+        //capTanque (litros),consumo (km/litro),tempoVolante (minutos), velocidade (km/h)
+        Carro veiculo = new Carro(40.0,15.0,180,380.0);
         
-        d.calcula(nodes.get(origem));        
-        caminho = d.getCaminho(nodes.get(destino));
-        custoPedagio = d.custo.get(caminho.get(caminho.size() - 1));
+        // inicializa trajeto com o ponto de origem
+        trajeto.add(0,pts.get(0));
+        pts.remove(0);
         
-        Carro veiculo = new Carro(40.0,15.0,180,180.0);
-        
-        System.out.println("\n---- CALCULANDO MENOR ROTA DO PONTO "+ origem + " ATÉ O PONTO "+ destino +" partindo com tanque cheio -------------------\n");
-        
-        int i = 0;
-        
-        do {
+        while (pts.size() > 1){
         	
-        	if (i == caminho.size() - 1){
-
-        		double dist = round(veiculo.getOdometro(),3);
-        		double comb = round(dist / veiculo.getConsumo(),3);
-        		double ped = round(custoPedagio,2);
-        		double custComb = round((valorComb * comb),2);
-        	
+        	for (int i = 0; i <= pts.size() - 2;i++){
         		
+            	d.calcula(nodes.get(trajeto.get(trajeto.size() - 1)));
+            	caminho = d.getCaminho(nodes.get(pts.get(i)));
+                custoPedagio = d.custo.get(caminho.get(caminho.size() - 1));
+        		custoTotal = veiculo.calculaDistancia(nodes.get(trajeto.get(trajeto.size() - 1)), nodes.get(pts.get(i))) * valorComb  + custoPedagio;
         		        		
-        		System.out.println("CHEGOU NO DESTINO FINAL !\n");
-        		
-        		System.out.println("\n---- ESTATÍSTICAS -----");
-        		System.out.println("Km percorridos: " + dist);
-        		System.out.println("Combustível utilizado: " + comb + " litros");
-        		System.out.println("Custo com pedágio: R$ " + ped);
-        		System.out.println("Custo com combustível: R$ " + custComb);
-        		System.out.println("\nCUSTO TOTAL: R$ " + (custComb + ped));
-
-        		
-        		
-        		break;
+        		if (menorCusto == null || custoTotal < menorCusto){
+        			pos = i;
+        			menorCusto = custoTotal;
+        		}
         	}
-        		
-    		if (veiculo.checarTanque(caminho.get(i), caminho.get(i + 1))){
-    			if (veiculo.checarTempo(caminho.get(i), caminho.get(i + 1))){
-    				System.out.println("ORIGEM: "+ caminho.get(i).getNome() + "    DESTINO:"+ caminho.get(i + 1).getNome()); 
-    				veiculo.rodar(caminho.get(i), caminho.get(i + 1));
-    				i++;
-    			}
-    			else {
-    				System.out.println("---> PARADA para descançar, ponto: "+ caminho.get(i).getNome());
-    				veiculo.setTempoDirecao(180);
-    			}
-    		}
-    		else {
-    			System.out.println("---> PARADA para abastecer, ponto: "+ caminho.get(i).getNome());
-    			veiculo.reabastecer();
-    		}
+        	
+        	trajeto.add(pts.get(pos));
+        	pts.remove(pos);
+        	menorCusto = null;
+        }
         
-        } while (i < caminho.size());
+        // adiciona o destino no final
+        trajeto.add(pts.get(pts.size() - 1));
         
+            
+        System.out.println("\n---- CALCULANDO A ROTA MAIS EFICIENTE -------------------\n");
+        
+        int t = 0;
+        
+        System.out.print("Rota traçada: ");
+        for (t= 0; t< trajeto.size();t++){
+        	
+        	if (t != 0){
+        		System.out.print(" -> ");
+        	}
+        	
+        	System.out.print(trajeto.get(t));
+        }
+        System.out.print("\n");
+        
+        System.out.println("\n---- SIMULANDO VIAGEM  -------------------");
+        System.out.println("Dados do veículo:");
+        System.out.println("Capacidade do tanque: "+ round(veiculo.getCapTanque(),3) +" Litros");
+        System.out.println("Nível do tanque: "+ round(veiculo.getTanque(),3) +" Litros");
+        System.out.println("Odômetro de viagem: "+ round(veiculo.getOdometroViagem(),3) +" KM \n\n\n");
+        
+        double totalPedagio = 0.0;
+        double totalCombustivel = 0.0;
+                
+        for (t=0;t<trajeto.size() - 1;t++){
+        	
+        	System.out.println("---------------------------------------------------------------> PARTIDA: " + nodes.get(trajeto.get(t)).getNome() + " DESTINO:" + nodes.get(trajeto.get(t + 1)).getNome() +" <--------" );
+        	
+        	d.calcula(nodes.get(trajeto.get(t)));
+        	caminho = d.getCaminho(nodes.get(trajeto.get(t + 1)));
+            custoPedagio = d.custo.get(caminho.get(caminho.size() - 1));
+        
+            int c = 0;
+            
+	        do {
+	        	
+	        	if (c == caminho.size() - 1){
+	
+	        		double dist = round(veiculo.getOdometroViagem(),3);
+	        		double comb = round(dist / veiculo.getConsumo(),3);
+	        		double ped = round(custoPedagio,2);
+	        		double custComb = round((valorComb * comb),2);
+	        		
+	        		System.out.println("\n---- PARCIAIS -----");
+	        		System.out.println("Km percorridos: " + dist);
+	        		System.out.println("Combustível utilizado: " + comb + " litros");
+	        		System.out.println("Custo com pedágio: R$ " + ped);
+	        		System.out.println("Custo com combustível: R$ " + custComb);
+	        		System.out.println("\nCUSTO PARCIAL: R$ " + round((custComb + ped),2));
+	
+	        		totalPedagio += ped;
+	        		totalCombustivel += comb;
+	        		
+	        		break;
+	        	}
+	        		
+	    		if (veiculo.checarTanque(caminho.get(c), caminho.get(c + 1))){
+	    			if (veiculo.checarTempo(caminho.get(c), caminho.get(c + 1))){
+	    				System.out.println("PONTO "+ caminho.get(c).getNome() + " ATE PONTO "+ caminho.get(c + 1).getNome()); 
+	    				veiculo.rodar(caminho.get(c), caminho.get(c + 1));
+	    				c++;
+	    			}
+	    			else {
+	    				if (veiculo.getTempoDirecao() == veiculo.getTempoMaxDir()){
+	    					System.out.println("---> DISTÂNCIA IMPOSSÍVEL DE SER ALCANÇADA NO TEMPO EXTIPULADO VIAJANDO NA ATUAL VELOCIDADE, AUMENTE A VELOCIDADE OU O TEMPO AO VOLANTE <------");
+	    					System.exit(-1);
+	    				}
+	    				System.out.println("---> PARADA para descançar, ponto: "+ caminho.get(c).getNome());
+	    				veiculo.setTempoDirecao(180);
+	    			}
+	    		}
+	    		else {
+	    			System.out.println("---> PARADA para abastecer, ponto: "+ caminho.get(c).getNome());
+	    			veiculo.reabastecer();
+	    		}
+	        
+	        } while (c < caminho.size());
+
+	        // zero odometro do carro para prox trecho
+	        veiculo.setOdometroViagem(0.0);
+	        
+        }
+
+        System.out.println("\n\n\n\n--------------------------> CUSTOS TOTAIS <---------------------------------------");
+        System.out.println(" Total rodado: "+ round(veiculo.getOdometroTotal(),3) + " km");
+        System.out.println(" Combustivel: R$ " + round(veiculo.getOdometroTotal()/veiculo.getConsumo() * valorComb,2));
+        System.out.println(" Pedágio: R$ " + round(totalPedagio,2));
+        System.out.println("\n\nVALOR TOTAL: R$ "+ round((veiculo.getOdometroTotal()/veiculo.getConsumo() * valorComb) + totalPedagio,2));
     }
     
     public static double round(double value, int places) {
